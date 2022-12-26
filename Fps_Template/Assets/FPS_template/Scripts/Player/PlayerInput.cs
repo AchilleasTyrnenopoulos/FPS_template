@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] private float _lookSensitivity = 1f;
+
     public Vector3 GetMoveInput()
     {
         //if (CanProcessInput())
@@ -19,4 +21,22 @@ public class PlayerInput : MonoBehaviour
 
         //return Vector3.zero;
     }
+    public float GetHorizontalInput()
+    {
+        float input = Input.GetAxis("Mouse X");
+        input *= _lookSensitivity;
+
+        return input;
+    }
+
+    public float GetVerticalInput()
+    {
+        float input = Input.GetAxis("Mouse Y");
+        input *= -1f;
+        input *= _lookSensitivity;
+
+        return input;
+    }
 }
+
+

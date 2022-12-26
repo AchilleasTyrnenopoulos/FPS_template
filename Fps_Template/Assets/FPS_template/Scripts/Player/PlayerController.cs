@@ -6,14 +6,18 @@ public class PlayerController : MonoBehaviour
 {
     public CharacterController CharController { get; private set; }
     public PlayerInput Input { get; private set; }
-    
+
+    [Tooltip("Force applied downward when in the air")]
+    [SerializeField] private float _gravityDownForce = 20f;
+    public float GetGravityDownForce() => _gravityDownForce;
     [Tooltip("Physic layers checked to consider the player grounded")]
     [SerializeField] private LayerMask _groundCheckLayers = -1;
     [Tooltip("distance from the bottom of the character controller capsule to test for grounded")]
     public float groundCheckDistance = 0.05f;
-    public bool isGrounded = true;
+    public bool isGrounded = true;    
 
     private const float GroundCheckDistanceInAir = 0.07f;
+    private const float JumpGroundingPreventionTime = 0.02f;
 
     private Vector3 _groundNormal;
     public Vector3 GetGroundNormal() => _groundNormal;
@@ -24,8 +28,14 @@ public class PlayerController : MonoBehaviour
         Input = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        CharController.enableOverlapRecovery = true;
+    }
+
     private void Update()
     {
+        bool wasGrounded = isGrounded;
         GroundCheck();
     }
 
@@ -39,7 +49,7 @@ public class PlayerController : MonoBehaviour
         _groundNormal = Vector3.up;
 
         // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
-        //if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
+        //if (Time.time >= JumpGroundingPreventionTime)
         {
             // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(CharController.height),
@@ -72,15 +82,14 @@ public class PlayerController : MonoBehaviour
     }
 
     // Gets the center point of the bottom hemisphere of the character controller capsule    
-    Vector3 GetCapsuleBottomHemisphere()
+    public Vector3 GetCapsuleBottomHemisphere()
     {
         return transform.position + (transform.up * CharController.radius);
     }
 
     // Gets the center point of the top hemisphere of the character controller capsule    
-    Vector3 GetCapsuleTopHemisphere(float atHeight)
+    public Vector3 GetCapsuleTopHemisphere(float atHeight)
     {
         return transform.position + (transform.up * (atHeight - CharController.radius));
-    }
-
+    }    
 }
