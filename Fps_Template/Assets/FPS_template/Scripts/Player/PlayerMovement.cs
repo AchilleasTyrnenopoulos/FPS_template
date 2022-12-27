@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Rotation")]
     [SerializeField] private float _rotationSpeed = 200f;
+    [Range(.1f, 1f)]
     [SerializeField] private float _rotationMultiplier = 1f;
 
     [Header("Footsteps")]
@@ -30,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
     //[SerializeField] private Transform _footstepsTrans;
     //[SerializeField] private AudioSource _footstepsAudioSource;
     //[SerializeField] private FootstepsSFX_SO _footstepsSfxGroups;
-    //[SerializeField] private List<AudioClip> _currentFoostepsGroup;
-    [SerializeField] private FootstepsManager _footsteps;
+    //[SerializeField] private List<AudioClip> _currentFoostepsGroup;    
     [SerializeField] private float _footstepsFrequency = .3f;
     private float _footstepDistanceCounter = 0f;
     //[SerializeField] private string _currentGroundMaterial = "";
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _footstepDistanceCounter = 0f;
                 //_footstepsAudioSource.PlayOneShot();
-                _footsteps.PlayFootstepSfx();
+                Controller.FootstepsManager.PlayFootstepSfx();
                 Debug.Log("step");
             }
             _footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;

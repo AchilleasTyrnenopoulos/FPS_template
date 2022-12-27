@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public CharacterController CharController { get; private set; }
     public PlayerInput Input { get; private set; }
-
+    
+    public FootstepsManager FootstepsManager { get; private set; }    
     [Tooltip("Force applied downward when in the air")]
     [SerializeField] private float _gravityDownForce = 20f;
     public float GetGravityDownForce() => _gravityDownForce;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         CharController = GetComponent<CharacterController>();
         Input = GetComponent<PlayerInput>();
+        FootstepsManager = GetComponentInChildren<FootstepsManager>();
     }
 
     private void Start()
@@ -37,6 +39,31 @@ public class PlayerController : MonoBehaviour
     {
         bool wasGrounded = isGrounded;
         GroundCheck();
+
+        if(isGrounded && !wasGrounded)
+        {
+            //fall damage if game has it
+            // Fall damage
+            //float fallSpeed = -Mathf.Min(CharacterVelocity.y, m_LatestImpactSpeed.y);
+            //float fallSpeedRatio = (fallSpeed - MinSpeedForFallDamage) /
+            //                       (MaxSpeedForFallDamage - MinSpeedForFallDamage);
+            //if (RecievesFallDamage && fallSpeedRatio > 0f)
+            //{
+            //    float dmgFromFall = Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
+            //    m_Health.TakeDamage(dmgFromFall, null);
+
+            //    // fall damage SFX
+            //    AudioSource.PlayOneShot(FallDamageSfx);
+            //}
+            //    else
+            //{
+            //    // land SFX
+            //    AudioSource.PlayOneShot(LandSfx);
+            //}
+
+            //play landing sfx
+            FootstepsManager.PlayLandingSfx();
+        }
     }
 
     private void GroundCheck()

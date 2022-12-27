@@ -35,7 +35,10 @@ public class FootstepsManager : MonoBehaviour
 
             //check if material has changed
             if (previousGroundMaterial != _currentGroundMaterial)
+            {
+                _footstepsAudioSource.Stop();
                 SetCurrentFootstepsSfxGroup();
+            }
 
             Debug.Log(_currentGroundMaterial);
             Debug.DrawLine(transform.position, hit.point, Color.cyan);
@@ -77,5 +80,12 @@ public class FootstepsManager : MonoBehaviour
 
         //store last playedFootstepSfx
         _lastPlayedFootstepSfx = sfx;
+    }
+
+    public void PlayLandingSfx()
+    {
+        AudioClip sfx = _footstepsSfxGroups.GetLandingSfx(_currentGroundMaterial);
+
+        _footstepsAudioSource.PlayOneShot(sfx);
     }
 }
