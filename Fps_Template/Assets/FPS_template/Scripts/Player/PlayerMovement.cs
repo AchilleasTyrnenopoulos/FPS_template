@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private PlayerMovementStates _currentMovementState;
+
     public PlayerController Controller { get; private set; }
     [SerializeField] private float _movementSpeed = 1f;
-    
+
     [Tooltip("Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
     [SerializeField] private float _movementSharpnessOnGround = 15f;
     public Vector3 characterVelocity { get; set; }
@@ -27,40 +29,66 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationMultiplier = 1f;
 
     [Header("Footsteps")]
-    //[SerializeField] private LayerMask _groundLayers;
-    //[SerializeField] private Transform _footstepsTrans;
-    //[SerializeField] private AudioSource _footstepsAudioSource;
-    //[SerializeField] private FootstepsSFX_SO _footstepsSfxGroups;
-    //[SerializeField] private List<AudioClip> _currentFoostepsGroup;    
     [SerializeField] private float _footstepsFrequency = .3f;
     private float _footstepDistanceCounter = 0f;
-    //[SerializeField] private string _currentGroundMaterial = "";
-    //[SerializeField] private AudioClip _lastPlayedFootstepSfx;
-    
+
     private void Awake()
     {
         Controller = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        _currentMovementState = PlayerMovementStates.IDLE;
+    }
+
+    private void Update()
     {
         HandleCharacterMovement();
     }
 
     private void HandleCharacterMovement()
     {
+        #region Rotation
         //horizontal character rotation
-        transform.Rotate(new Vector3(0f, (Controller.Input.GetHorizontalInput() * _rotationSpeed * _rotationMultiplier), 0f), 
+        transform.Rotate(new Vector3(0f, (Controller.Input.GetHorizontalInput() * _rotationSpeed * _rotationMultiplier), 0f),
                         Space.Self);
 
         //vertical character rotation
         _cameraVerticalAngle += Controller.Input.GetVerticalInput() * _rotationSpeed * _rotationMultiplier;
         _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -89f, 89f);
         Camera.main.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
+        #endregion
+
+        #region Set movement state / Needs refactoring
+        Vector3 moveInput = Controller.Input.GetMoveInput();
+        if (Controller.isGrounded)
+        {
+            if (moveInput == Vector3.zero && _currentMovementState != PlayerMovementStates.IDLE)
+            {
+                //set idle state
+                _currentMovementState = PlayerMovementStates.IDLE;
+                Debug.Log("is idle");
+            }
+            else if (moveInput != Vector3.zero && _currentMovementState != PlayerMovementStates.MOVING)
+            {
+                //set moving
+                _currentMovementState = PlayerMovementStates.MOVING;
+                Debug.Log("is moving");
+            }
+        }
+        else
+        {
+            if(_currentMovementState != PlayerMovementStates.ON_AIR)
+            {
+                _currentMovementState = PlayerMovementStates.ON_AIR;
+                Debug.Log("is on air");
+            }
+        }
+        #endregion
 
         // converts move input to a worldspace vector based on our character's transform orientation
-        Vector3 worldspaceMoveInput = transform.TransformVector(Controller.Input.GetMoveInput());
+        Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
 
         if (Controller.isGrounded)
         {
@@ -73,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
 
             //footsteps             
-            if(_footstepDistanceCounter >= 1f / _footstepsFrequency)
+            if (_footstepDistanceCounter >= 1f / _footstepsFrequency)
             {
                 _footstepDistanceCounter = 0f;
                 //_footstepsAudioSource.PlayOneShot();
@@ -81,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("step");
             }
             _footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
-            
+
         }
         else
         {
@@ -115,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             characterVelocity = Vector3.ProjectOnPlane(characterVelocity, hit.normal);
         }
     }
-    
+
 
 
     // Gets a reoriented direction that is tangent to a given slope
@@ -123,6 +151,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 directionRight = Vector3.Cross(direction, transform.up);
         return Vector3.Cross(slopeNormal, directionRight).normalized;
-    }    
+    }
 
 }
