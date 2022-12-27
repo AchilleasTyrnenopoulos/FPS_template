@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    [Range(0.1f, 1f)]
     [SerializeField] private float _lookSensitivity = 1f;
 
     public Vector3 GetMoveInput()

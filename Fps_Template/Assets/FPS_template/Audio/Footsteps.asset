@@ -27,3 +27,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ca683e82ecc56a4ea2f97a96f20eb15, type: 3}
   - {fileID: 8300000, guid: 2200bd846de7e5849b5818b67490ad16, type: 3}
   - {fileID: 8300000, guid: d132bb4896f960341b212c01cd05d37d, type: 3}
+  _woodLanding: {fileID: 8300000, guid: 774f88502059e344a8604ad4a1f23ff1, type: 3}
+  _dirtLanding: {fileID: 8300000, guid: 7ff473a10c37e644f81422cfb0cc147d, type: 3}
+  _grassLanding: {fileID: 8300000, guid: 2c92c5d6776baa943839ae1283d0a66d, type: 3}

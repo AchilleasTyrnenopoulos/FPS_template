@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cf12cbee3ea364b88e5021c92adf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lookSensitivity: 1
+  _lookSensitivity: 0.2
 --- !u!114 &48223039274277175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,8 +188,7 @@ MonoBehaviour:
   _airSpeed: 10
   _accelerationSpeedInAir: 25
   _rotationSpeed: 7.5
-  _rotationMultiplier: 1
-  _footsteps: {fileID: 7021235750984300829}
+  _rotationMultiplier: 0.5
   _footstepsFrequency: 0.5
 --- !u!1 &48223039872641185
 GameObject:
