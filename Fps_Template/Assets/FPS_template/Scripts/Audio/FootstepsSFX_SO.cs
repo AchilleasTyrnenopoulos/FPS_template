@@ -7,12 +7,12 @@ public class FootstepsSFX_SO : ScriptableObject
 {
     [Header("Footsteps")]
     [SerializeField] private List<AudioClip> _woodFootsteps;
-    [SerializeField] private List<AudioClip> _dirtFootsteps;
+    [SerializeField] private List<AudioClip> _gravelFootsteps;
     [SerializeField] private List<AudioClip> _grassFootsteps;
 
     [Header("Landing")]
     [SerializeField] private AudioClip _woodLanding;
-    [SerializeField] private AudioClip _dirtLanding;
+    [SerializeField] private AudioClip _gravelLanding;
     [SerializeField] private AudioClip _grassLanding;
 
     public List<AudioClip> GetFootstepsGroup(string materialName)
@@ -21,8 +21,8 @@ public class FootstepsSFX_SO : ScriptableObject
         {
             case "wood":
                 return _woodFootsteps;
-            case "dirt":
-                return _dirtFootsteps;
+            case "gravel":
+                return _gravelFootsteps;
             case "grass":
                 return _grassFootsteps;
             default:
@@ -36,8 +36,8 @@ public class FootstepsSFX_SO : ScriptableObject
         {
             case "wood":
                 return _woodLanding;
-            case "dirt":
-                return _dirtLanding;
+            case "gravel":
+                return _gravelLanding;
             case "grass":
                 return _grassLanding;
             default:
