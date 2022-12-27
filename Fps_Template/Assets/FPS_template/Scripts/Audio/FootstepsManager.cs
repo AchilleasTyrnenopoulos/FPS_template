@@ -18,12 +18,12 @@ public class FootstepsManager : MonoBehaviour
     {
         GetGroundMaterial();
         SetCurrentFootstepsSfxGroup();
-    }   
-
-    private void LateUpdate()
-    {
-        GetGroundMaterial();
     }
+
+    private void FixedUpdate()
+    {
+        GetGroundMaterial(); //maybe do it in update
+    }    
 
     private void GetGroundMaterial()
     {

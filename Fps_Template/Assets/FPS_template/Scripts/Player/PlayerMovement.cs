@@ -42,17 +42,9 @@ public class PlayerMovement : MonoBehaviour
         Controller = GetComponent<PlayerController>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //GetGroundMaterial();
-        //SetCurrentFootstepsSfxGroup();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        //GetGroundMaterial();
         HandleCharacterMovement();
     }
 
@@ -94,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // add air acceleration
-            characterVelocity += worldspaceMoveInput * _accelerationSpeedInAir * Time.deltaTime;
+            characterVelocity += _accelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
 
             // limit air speed to a maximum, but only horizontally
             float verticalVelocity = characterVelocity.y;
@@ -103,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
             characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
             // apply the gravity to the velocity
-            characterVelocity += Vector3.down * Controller.GetGravityDownForce() * Time.deltaTime;
+            characterVelocity += Controller.GetGravityDownForce() * Time.deltaTime * Vector3.down;
         }
 
         // apply the final calculated velocity value as a character movement
@@ -123,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             characterVelocity = Vector3.ProjectOnPlane(characterVelocity, hit.normal);
         }
     }
+    
 
 
     // Gets a reoriented direction that is tangent to a given slope
