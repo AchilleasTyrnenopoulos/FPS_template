@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 77155917}
   - component: {fileID: 77155916}
   m_Layer: 3
-  m_Name: Ground (1)
+  m_Name: Ground gravel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 296015313}
   - component: {fileID: 296015312}
   m_Layer: 3
-  m_Name: 45 slope (1)
+  m_Name: 'platform wood '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 1139856428}
   - component: {fileID: 1139856427}
   m_Layer: 3
-  m_Name: Ground (2)
+  m_Name: Ground no mat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -972,7 +972,7 @@ GameObject:
   - component: {fileID: 1668228373}
   - component: {fileID: 1668228372}
   m_Layer: 3
-  m_Name: 45 slope (3)
+  m_Name: 45 slope wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1069,7 +1069,7 @@ GameObject:
   - component: {fileID: 1891009510}
   - component: {fileID: 1891009509}
   m_Layer: 3
-  m_Name: 45 slope
+  m_Name: 45 slope wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1203,7 +1203,7 @@ GameObject:
   - component: {fileID: 1979690506}
   - component: {fileID: 1979690505}
   m_Layer: 3
-  m_Name: Ground
+  m_Name: Ground grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
