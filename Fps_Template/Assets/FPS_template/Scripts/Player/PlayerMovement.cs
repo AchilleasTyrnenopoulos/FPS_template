@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerController _controller;
@@ -32,36 +33,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void HandleCharacterMovement()
-    {
-        #region Set movement state / Needs refactoring
-        Vector3 moveInput = _controller.Input.GetMoveInput();
-        if (_controller.isGrounded)
-        {
-            if (moveInput == Vector3.zero && _controller.GetCurrentMovementState() != PlayerMovementStates.IDLE)
-            {
-                //set idle state
-                _controller.SetCurrentMovementState(PlayerMovementStates.IDLE);
-                Debug.Log("is idle");
-            }
-            else if (moveInput != Vector3.zero && _controller.GetCurrentMovementState() != PlayerMovementStates.MOVING)
-            {
-                //set moving
-                _controller.SetCurrentMovementState(PlayerMovementStates.MOVING);
-                Debug.Log("is moving");
-            }
-        }
-        else
-        {
-            if(_controller.GetCurrentMovementState() != PlayerMovementStates.ON_AIR)
-            {
-                _controller.SetCurrentMovementState(PlayerMovementStates.ON_AIR);
-                Debug.Log("is on air");
-            }
-        }
-        #endregion
-
+    {       
         // converts move input to a worldspace vector based on our character's transform orientation
-        Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
+        Vector3 worldspaceMoveInput = transform.TransformVector(_controller.GetMoveInput());
 
         if (_controller.isGrounded)
         {
@@ -116,8 +90,6 @@ public class PlayerMovement : MonoBehaviour
             CharacterVelocity = Vector3.ProjectOnPlane(CharacterVelocity, hit.normal);
         }
     }
-
-
 
     // Gets a reoriented direction that is tangent to a given slope
     private Vector3 GetDirectionReorientedOnSlope(Vector3 direction, Vector3 slopeNormal)

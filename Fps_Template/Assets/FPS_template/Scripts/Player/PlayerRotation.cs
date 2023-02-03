@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerRotation : MonoBehaviour
 {
     private PlayerController _controller;
@@ -28,12 +29,20 @@ public class PlayerRotation : MonoBehaviour
 
     private void HandleCharacterRotation()
     {
-        //horizontal character rotation
-        this.transform.Rotate(new Vector3(0f, (_controller.Input.GetHorizontalInput() * _rotationSpeed * _rotationMultiplier), 0f),
-                        Space.Self);
+        HandleHorizontalRotation();
 
-        //vertical character rotation
-        _cameraVerticalAngle += _controller.Input.GetVerticalInput() * _rotationSpeed * _rotationMultiplier;
+        HandleVerticalRotation();   
+    }
+
+    private void HandleHorizontalRotation()
+    {        
+        this.transform.Rotate(new Vector3(0f, (_controller.GetHorizontalInput() * _rotationSpeed * _rotationMultiplier), 0f),
+                        Space.Self);
+    }
+
+    private void HandleVerticalRotation()
+    {        
+        _cameraVerticalAngle += _controller.GetVerticalInput() * _rotationSpeed * _rotationMultiplier;
         _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -89f, 89f);
         Camera.main.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
     }

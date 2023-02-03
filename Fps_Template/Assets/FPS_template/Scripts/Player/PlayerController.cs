@@ -23,8 +23,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _groundNormal;
     public Vector3 GetGroundNormal() => _groundNormal;
-
-    [SerializeField] private PlayerMovementStates _currentMovementState;
+    private Vector3 _moveInput;
+    public Vector3 GetMoveInput() => _moveInput;
+    private float _horizontalInput;
+    public float GetHorizontalInput() => _horizontalInput;
+    private float _verticalInput;
+    public float GetVerticalInput() => _verticalInput;
 
     private void Awake()
     {
@@ -35,12 +39,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        CharController.enableOverlapRecovery = true;
-        _currentMovementState = PlayerMovementStates.IDLE;
+        CharController.enableOverlapRecovery = true;        
     }
 
     private void Update()
     {
+        //cache input
+        _moveInput = Input.GetMoveInput();
+        _horizontalInput = Input.GetHorizontalInput();
+        _verticalInput = Input.GetVerticalInput();
+
         bool wasGrounded = isGrounded;
         GroundCheck();
 
@@ -124,10 +132,4 @@ public class PlayerController : MonoBehaviour
         return transform.position + (transform.up * (atHeight - CharController.radius));
     }    
 
-    public void SetCurrentMovementState(PlayerMovementStates state)
-    {
-        _currentMovementState = state;
-    }
-
-    public PlayerMovementStates GetCurrentMovementState() => _currentMovementState;
 }

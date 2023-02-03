@@ -40,7 +40,7 @@ public class FootstepsManager : MonoBehaviour
                 SetCurrentFootstepsSfxGroup();
             }
 
-            Debug.Log(_currentGroundMaterial);
+            //Debug.Log(_currentGroundMaterial);
             Debug.DrawLine(transform.position, hit.point, Color.cyan);
         }
     }
@@ -53,12 +53,12 @@ public class FootstepsManager : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(_currentGroundMaterial))
         {
             _currentFoostepsGroup = _footstepsSfxGroups?.GetFootstepsGroup(_currentGroundMaterial);
-            Debug.Log("Set new footsteps sfx group");
+            //Debug.Log("Set new footsteps sfx group");
 
 #if UNITY_EDITOR
             if(_currentFoostepsGroup == null)
             {
-                Debug.LogError($"{nameof(FootstepsManager)} - {nameof(SetCurrentFootstepsSfxGroup)} \nMaterial name does not match a footsteps sfx group");
+                //Debug.LogError($"{nameof(FootstepsManager)} - {nameof(SetCurrentFootstepsSfxGroup)} \nMaterial name does not match a footsteps sfx group");
             }
 #endif
         }
