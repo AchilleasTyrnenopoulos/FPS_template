@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Tooltip("Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
     [SerializeField] private float _movementSharpnessOnGround = 15f;
-    public Vector3 CharacterVelocity { get; set; }
+    private Vector3 _characterVelocity;
 
     [Header("Air Movement")]
     [SerializeField] private float _airSpeed = 10f;
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
             targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, _controller.GetGroundNormal()) * targetVelocity.magnitude;
 
             // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
-            CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
+            _characterVelocity = Vector3.Lerp(_characterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
 
             //footsteps             
             if (_footstepDistanceCounter >= 1f / _footstepsFrequency)
@@ -55,39 +55,39 @@ public class PlayerMovement : MonoBehaviour
                 _controller.FootstepsManager.PlayFootstepSfx();
                 Debug.Log("step");
             }
-            _footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
+            _footstepDistanceCounter += _characterVelocity.magnitude * Time.deltaTime;
 
         }
         else
         {
             // add air acceleration
-            CharacterVelocity += _accelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
+            _characterVelocity += _accelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
 
             // limit air speed to a maximum, but only horizontally
-            float verticalVelocity = CharacterVelocity.y;
-            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
+            float verticalVelocity = _characterVelocity.y;
+            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(_characterVelocity, Vector3.up);
             horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _airSpeed);
-            CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            _characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
             // apply the gravity to the velocity
-            CharacterVelocity += _controller.GetGravityDownForce() * Time.deltaTime * Vector3.down;
+            _characterVelocity += _controller.GetGravityDownForce() * Time.deltaTime * Vector3.down;
         }
 
         // apply the final calculated velocity value as a character movement
         Vector3 capsuleBottomBeforeMove = _controller.GetCapsuleBottomHemisphere();
         Vector3 capsuleTopBeforeMove = _controller.GetCapsuleTopHemisphere(_controller.CharController.height);
-        _controller.CharController.Move(CharacterVelocity * Time.deltaTime);
+        _controller.CharController.Move(_characterVelocity * Time.deltaTime);
 
         // detect obstructions to adjust velocity accordingly
         //m_LatestImpactSpeed = Vector3.zero;
         if (Physics.CapsuleCast(capsuleBottomBeforeMove, capsuleTopBeforeMove, _controller.CharController.radius,
-            CharacterVelocity.normalized, out RaycastHit hit, CharacterVelocity.magnitude * Time.deltaTime, -1,
+            _characterVelocity.normalized, out RaycastHit hit, _characterVelocity.magnitude * Time.deltaTime, -1,
             QueryTriggerInteraction.Ignore))
         {
             // We remember the last impact speed because the fall damage logic might need it
             //m_LatestImpactSpeed = CharacterVelocity;
 
-            CharacterVelocity = Vector3.ProjectOnPlane(CharacterVelocity, hit.normal);
+            _characterVelocity = Vector3.ProjectOnPlane(_characterVelocity, hit.normal);
         }
     }
 

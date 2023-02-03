@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public static event Action OnPause;
+    public static event Action OnPauseExit;
 
     private void Awake()
     {
@@ -29,5 +30,11 @@ public class GameManager : MonoBehaviour
     {
         MouseCursorHandler.EnableCursor();
         OnPause?.Invoke();
+    }
+
+    public void OnPauseExitInvoke()
+    {
+        MouseCursorHandler.DisableCursor();
+        OnPauseExit?.Invoke();
     }
 }
