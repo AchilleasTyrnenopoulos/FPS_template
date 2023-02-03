@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public CharacterController CharController { get; private set; }
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 _groundNormal;
     public Vector3 GetGroundNormal() => _groundNormal;
 
+    [SerializeField] private PlayerMovementStates _currentMovementState;
+
     private void Awake()
     {
         CharController = GetComponent<CharacterController>();
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         CharController.enableOverlapRecovery = true;
+        _currentMovementState = PlayerMovementStates.IDLE;
     }
 
     private void Update()
@@ -119,4 +123,11 @@ public class PlayerController : MonoBehaviour
     {
         return transform.position + (transform.up * (atHeight - CharController.radius));
     }    
+
+    public void SetCurrentMovementState(PlayerMovementStates state)
+    {
+        _currentMovementState = state;
+    }
+
+    public PlayerMovementStates GetCurrentMovementState() => _currentMovementState;
 }

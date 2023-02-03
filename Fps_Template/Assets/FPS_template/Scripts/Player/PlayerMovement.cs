@@ -5,28 +5,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementStates _currentMovementState;
-
-    public PlayerController Controller { get; private set; }
+    private PlayerController _controller;
     [SerializeField] private float _movementSpeed = 1f;
 
     [Tooltip("Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
     [SerializeField] private float _movementSharpnessOnGround = 15f;
-    public Vector3 characterVelocity { get; set; }
-
-
-    [Header("Camera")]
-    private float _cameraVerticalAngle = 0f;
+    public Vector3 CharacterVelocity { get; set; }
 
     [Header("Air Movement")]
     [SerializeField] private float _airSpeed = 10f;
     [Tooltip("Acceleration speed when in the air")]
     [SerializeField] private float _accelerationSpeedInAir = 25f;
-
-    [Header("Rotation")]
-    [SerializeField] private float _rotationSpeed = 200f;
-    [Range(.1f, 1f)]
-    [SerializeField] private float _rotationMultiplier = 1f;
 
     [Header("Footsteps")]
     [SerializeField] private float _footstepsFrequency = .3f;
@@ -34,12 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        Controller = GetComponent<PlayerController>();
-    }
-
-    private void Start()
-    {
-        _currentMovementState = PlayerMovementStates.IDLE;
+        _controller = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -49,39 +33,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleCharacterMovement()
     {
-        #region Rotation
-        //horizontal character rotation
-        transform.Rotate(new Vector3(0f, (Controller.Input.GetHorizontalInput() * _rotationSpeed * _rotationMultiplier), 0f),
-                        Space.Self);
-
-        //vertical character rotation
-        _cameraVerticalAngle += Controller.Input.GetVerticalInput() * _rotationSpeed * _rotationMultiplier;
-        _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -89f, 89f);
-        Camera.main.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
-        #endregion
-
         #region Set movement state / Needs refactoring
-        Vector3 moveInput = Controller.Input.GetMoveInput();
-        if (Controller.isGrounded)
+        Vector3 moveInput = _controller.Input.GetMoveInput();
+        if (_controller.isGrounded)
         {
-            if (moveInput == Vector3.zero && _currentMovementState != PlayerMovementStates.IDLE)
+            if (moveInput == Vector3.zero && _controller.GetCurrentMovementState() != PlayerMovementStates.IDLE)
             {
                 //set idle state
-                _currentMovementState = PlayerMovementStates.IDLE;
+                _controller.SetCurrentMovementState(PlayerMovementStates.IDLE);
                 Debug.Log("is idle");
             }
-            else if (moveInput != Vector3.zero && _currentMovementState != PlayerMovementStates.MOVING)
+            else if (moveInput != Vector3.zero && _controller.GetCurrentMovementState() != PlayerMovementStates.MOVING)
             {
                 //set moving
-                _currentMovementState = PlayerMovementStates.MOVING;
+                _controller.SetCurrentMovementState(PlayerMovementStates.MOVING);
                 Debug.Log("is moving");
             }
         }
         else
         {
-            if(_currentMovementState != PlayerMovementStates.ON_AIR)
+            if(_controller.GetCurrentMovementState() != PlayerMovementStates.ON_AIR)
             {
-                _currentMovementState = PlayerMovementStates.ON_AIR;
+                _controller.SetCurrentMovementState(PlayerMovementStates.ON_AIR);
                 Debug.Log("is on air");
             }
         }
@@ -90,64 +63,64 @@ public class PlayerMovement : MonoBehaviour
         // converts move input to a worldspace vector based on our character's transform orientation
         Vector3 worldspaceMoveInput = transform.TransformVector(moveInput);
 
-        if (Controller.isGrounded)
+        if (_controller.isGrounded)
         {
             // calculate the desired velocity from inputs, max speed, and current slope
             Vector3 targetVelocity = worldspaceMoveInput * _movementSpeed;
 
-            targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, Controller.GetGroundNormal()) * targetVelocity.magnitude;
+            targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, _controller.GetGroundNormal()) * targetVelocity.magnitude;
 
             // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
-            characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
+            CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
 
             //footsteps             
             if (_footstepDistanceCounter >= 1f / _footstepsFrequency)
             {
                 _footstepDistanceCounter = 0f;
                 //_footstepsAudioSource.PlayOneShot();
-                Controller.FootstepsManager.PlayFootstepSfx();
+                _controller.FootstepsManager.PlayFootstepSfx();
                 Debug.Log("step");
             }
-            _footstepDistanceCounter += characterVelocity.magnitude * Time.deltaTime;
+            _footstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
 
         }
         else
         {
             // add air acceleration
-            characterVelocity += _accelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
+            CharacterVelocity += _accelerationSpeedInAir * Time.deltaTime * worldspaceMoveInput;
 
             // limit air speed to a maximum, but only horizontally
-            float verticalVelocity = characterVelocity.y;
-            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
+            float verticalVelocity = CharacterVelocity.y;
+            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(CharacterVelocity, Vector3.up);
             horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, _airSpeed);
-            characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            CharacterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
             // apply the gravity to the velocity
-            characterVelocity += Controller.GetGravityDownForce() * Time.deltaTime * Vector3.down;
+            CharacterVelocity += _controller.GetGravityDownForce() * Time.deltaTime * Vector3.down;
         }
 
         // apply the final calculated velocity value as a character movement
-        Vector3 capsuleBottomBeforeMove = Controller.GetCapsuleBottomHemisphere();
-        Vector3 capsuleTopBeforeMove = Controller.GetCapsuleTopHemisphere(Controller.CharController.height);
-        Controller.CharController.Move(characterVelocity * Time.deltaTime);
+        Vector3 capsuleBottomBeforeMove = _controller.GetCapsuleBottomHemisphere();
+        Vector3 capsuleTopBeforeMove = _controller.GetCapsuleTopHemisphere(_controller.CharController.height);
+        _controller.CharController.Move(CharacterVelocity * Time.deltaTime);
 
         // detect obstructions to adjust velocity accordingly
         //m_LatestImpactSpeed = Vector3.zero;
-        if (Physics.CapsuleCast(capsuleBottomBeforeMove, capsuleTopBeforeMove, Controller.CharController.radius,
-            characterVelocity.normalized, out RaycastHit hit, characterVelocity.magnitude * Time.deltaTime, -1,
+        if (Physics.CapsuleCast(capsuleBottomBeforeMove, capsuleTopBeforeMove, _controller.CharController.radius,
+            CharacterVelocity.normalized, out RaycastHit hit, CharacterVelocity.magnitude * Time.deltaTime, -1,
             QueryTriggerInteraction.Ignore))
         {
             // We remember the last impact speed because the fall damage logic might need it
             //m_LatestImpactSpeed = CharacterVelocity;
 
-            characterVelocity = Vector3.ProjectOnPlane(characterVelocity, hit.normal);
+            CharacterVelocity = Vector3.ProjectOnPlane(CharacterVelocity, hit.normal);
         }
     }
 
 
 
     // Gets a reoriented direction that is tangent to a given slope
-    public Vector3 GetDirectionReorientedOnSlope(Vector3 direction, Vector3 slopeNormal)
+    private Vector3 GetDirectionReorientedOnSlope(Vector3 direction, Vector3 slopeNormal)
     {
         Vector3 directionRight = Vector3.Cross(direction, transform.up);
         return Vector3.Cross(slopeNormal, directionRight).normalized;
