@@ -158,6 +158,8 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckDistance: 0.05
   isGrounded: 0
+  _isMoving: 0
+  _isRotating: 0
 --- !u!114 &48223039274277173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d42101a2264015409e8e78e065fab52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 7.5
   _rotationMultiplier: 0.5
 --- !u!114 &269427042429327464
 MonoBehaviour:
@@ -197,11 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0488a32178294ee4994dd7431a5efbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 4
+  _movementSpeed: 2
   _movementSharpnessOnGround: 15
   _airSpeed: 10
   _accelerationSpeedInAir: 25
-  _footstepsFrequency: 0.5
+  _footstepsFrequency: 1
 --- !u!1 &48223039872641185
 GameObject:
   m_ObjectHideFlags: 0

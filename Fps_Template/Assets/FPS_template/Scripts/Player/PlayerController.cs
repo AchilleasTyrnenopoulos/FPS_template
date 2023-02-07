@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     public float GetHorizontalInput() => _horizontalInput;
     private float _verticalInput;
     public float GetVerticalInput() => _verticalInput;
+    [SerializeField]
+    private bool _isMoving = false;
+    [SerializeField]
+    private bool _isRotating = false;
 
     private void Awake()
     {
@@ -44,10 +48,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //cache input
+        //'cache' input
         _moveInput = Input.GetMoveInput();
         _horizontalInput = Input.GetHorizontalInput();
         _verticalInput = Input.GetVerticalInput();
+        _isMoving = Input.GetIsMoving();
+        _isRotating = Input.GetIsRotating();
 
         bool wasGrounded = isGrounded;
         GroundCheck();

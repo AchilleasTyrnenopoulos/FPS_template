@@ -12,8 +12,8 @@ public class PlayerRotation : MonoBehaviour
     private float _cameraVerticalAngle = 0f;
 
     [Header("Rotation")]
-    [SerializeField] private float _rotationSpeed = 7.5f;
-    [Range(.1f, 1f)]
+    private float _rotationSpeed = .1f;
+    [Range(.1f, 2f)]
     [SerializeField] private float _rotationMultiplier = .5f;
 
     private void Awake()
