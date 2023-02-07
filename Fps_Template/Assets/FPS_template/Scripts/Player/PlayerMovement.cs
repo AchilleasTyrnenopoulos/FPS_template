@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerController _controller;
     [SerializeField] private float _movementSpeed = 1f;
+    [SerializeField] private float _sprintingSpeed = 3f;
 
     [Tooltip("Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
     [SerializeField] private float _movementSharpnessOnGround = 15f;
@@ -40,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
         if (_controller.isGrounded)
         {
             // calculate the desired velocity from inputs, max speed, and current slope
-            Vector3 targetVelocity = worldspaceMoveInput * _movementSpeed;
+            float speed = _controller.GetIsSprinting() ? _sprintingSpeed : _movementSpeed;
+            Vector3 targetVelocity = worldspaceMoveInput * speed;
 
             targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, _controller.GetGroundNormal()) * targetVelocity.magnitude;
 

@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving = false;
     [SerializeField]
     private bool _isRotating = false;
+    private bool _isSprinting = false;
+    public bool GetIsSprinting() => _isSprinting;
 
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         _verticalInput = Input.GetVerticalInput();
         _isMoving = Input.GetIsMoving();
         _isRotating = Input.GetIsRotating();
+        _isSprinting = Input.GetIsSprinting();
 
         bool wasGrounded = isGrounded;
         GroundCheck();

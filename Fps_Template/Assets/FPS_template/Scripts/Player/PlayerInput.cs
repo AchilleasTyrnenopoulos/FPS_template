@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
 
     private bool _isMoving = false;
     private bool _isRotating = false;
+    private bool _isSprinting = false;
     private void OnEnable()
     {
         _input = new InputActions();
@@ -28,6 +29,9 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Rotate.performed += SetLookInput;
         _input.Player.Rotate.canceled += SetLookInput;
         _input.Player.Rotate.canceled += StoppedRotating;
+
+        _input.Player.Sprint.started += StartedSprinting;
+        _input.Player.Sprint.canceled += StoppedSprinting;
     }
 
     private void OnDisable()
@@ -41,6 +45,9 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Rotate.performed -= SetLookInput;
         _input.Player.Rotate.canceled -= SetLookInput;
         _input.Player.Rotate.canceled -= StoppedRotating;
+
+        _input.Player.Sprint.started -= StartedSprinting;
+        _input.Player.Sprint.canceled -= StoppedSprinting;
 
         _input.Player.Disable();
     }
@@ -95,6 +102,20 @@ public class PlayerInput : MonoBehaviour
     }
 
 
+    #endregion
+
+    #region Sprint
+    public bool GetIsSprinting() => _isSprinting;
+
+    private void StartedSprinting(InputAction.CallbackContext ctx)
+    {
+        _isSprinting = true;
+    }
+
+    private void StoppedSprinting(InputAction.CallbackContext ctx)
+    {
+        _isSprinting = false;
+    }
     #endregion
 }
 
