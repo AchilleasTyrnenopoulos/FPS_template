@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private bool _isRotating = false;
     private bool _isSprinting = false;
     public bool GetIsSprinting() => _isSprinting;
+    private bool _interactTriggered = false;
+    public bool GetInteractTriggered() => _interactTriggered;
 
     private void Awake()
     {
@@ -50,18 +52,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //'cache' input
-        _moveInput = Input.GetMoveInput();
-        _horizontalInput = Input.GetHorizontalInput();
-        _verticalInput = Input.GetVerticalInput();
-        _isMoving = Input.GetIsMoving();
-        _isRotating = Input.GetIsRotating();
-        _isSprinting = Input.GetIsSprinting();
+        GetInput();
 
         bool wasGrounded = isGrounded;
         GroundCheck();
 
-        if(isGrounded && !wasGrounded)
+        if (isGrounded && !wasGrounded)
         {
             //fall damage if game has it
             // Fall damage
@@ -85,6 +81,17 @@ public class PlayerController : MonoBehaviour
             //play landing sfx
             FootstepsManager.PlayLandingSfx();
         }
+    }
+
+    private void GetInput()
+    {
+        _moveInput = Input.GetMoveInput();
+        _horizontalInput = Input.GetHorizontalInput();
+        _verticalInput = Input.GetVerticalInput();
+        _isMoving = Input.GetIsMoving();
+        _isRotating = Input.GetIsRotating();
+        _isSprinting = Input.GetIsSprinting();
+        _interactTriggered = Input.GetInteractTrigger();
     }
 
     private void GroundCheck()
@@ -124,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    bool IsNormalUnderSlopeLimit(Vector3 normal)
+    private bool IsNormalUnderSlopeLimit(Vector3 normal)
     {
         return Vector3.Angle(transform.up, normal) <= CharController.slopeLimit;
     }

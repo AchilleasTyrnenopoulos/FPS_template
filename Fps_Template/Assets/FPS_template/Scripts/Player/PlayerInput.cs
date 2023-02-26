@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     private bool _isMoving = false;
     private bool _isRotating = false;
     private bool _isSprinting = false;
+
     private void OnEnable()
     {
         _input = new InputActions();
@@ -117,6 +118,11 @@ public class PlayerInput : MonoBehaviour
         _isSprinting = false;
     }
     #endregion
+
+    public bool GetInteractTrigger()
+    {
+        return _input.Player.Interact.triggered;
+    }
 }
 
 
