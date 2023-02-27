@@ -25,7 +25,7 @@ public class InteractionUI : MonoBehaviour
     private void UpdateText(Interactable interactable)
     {
         if (interactable != null)
-            _text.text = interactable.GetPromptMessage();
+            _text.text = "Press E " + interactable.GetPromptMessage();
     }
 
     private void ResetText()

@@ -86,6 +86,7 @@ public class FootstepsManager : MonoBehaviour
     {
         AudioClip sfx = _footstepsSfxGroups.GetLandingSfx(_currentGroundMaterial);
 
-        _footstepsAudioSource.PlayOneShot(sfx);
+        if(sfx != null)
+            _footstepsAudioSource.PlayOneShot(sfx);
     }
 }
