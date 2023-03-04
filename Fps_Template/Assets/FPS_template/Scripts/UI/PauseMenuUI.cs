@@ -11,7 +11,7 @@ public class PauseMenuUI : MonoBehaviour
     {
         var button =  _resumeButton.GetComponent<Button>();
         button.Select();
-    }
+    }    
 
     public void ResumeGame()
     {
