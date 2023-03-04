@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private bool _isGamePaused = false;
+    public bool GetIsGamePaused() => _isGamePaused;
+
     public static GameManager Instance { get; private set; }
-    public static event Action OnPause;
-    public static event Action OnPauseExit;
+    public InputActions Input { get; private set; }
 
     private void Awake()
     {
@@ -18,6 +21,24 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning($"There are multiple GameManagers in the scene.\n Name: {this.gameObject.name}\n Position: {this.transform}");
             Destroy(this.gameObject);
         }
+
+    }
+
+    private void OnEnable()
+    {
+        Input = new InputActions();
+
+        Input.UI.Enable();
+
+        EventAggregator.GetEvent<PauseStartEvent>().Subscribe(MouseCursorEnable);
+        EventAggregator.GetEvent<PauseEndEvent>().Subscribe(MouseCursorDisable);
+    }    
+    private void OnDisable()
+    {
+        Input.UI.Disable();
+
+        EventAggregator.GetEvent<PauseStartEvent>().UnSubscribe(MouseCursorEnable);
+        EventAggregator.GetEvent<PauseEndEvent>().UnSubscribe(MouseCursorDisable);
     }
 
     // Start is called before the first frame update
@@ -26,15 +47,40 @@ public class GameManager : MonoBehaviour
         MouseCursorHandler.DisableCursor();
     }
 
-    public void OnPauseInvoke()
+    private void Update()
     {
-        MouseCursorHandler.EnableCursor();
-        OnPause?.Invoke();
+        if(Input.UI.Back.triggered)
+        {
+            TogglePauseGame();
+        }
     }
 
-    public void OnPauseExitInvoke()
+
+    public void MouseCursorEnable()
+    {
+        MouseCursorHandler.EnableCursor();
+        //OnPause?.Invoke();
+    }
+
+    public void MouseCursorDisable()
     {
         MouseCursorHandler.DisableCursor();
-        OnPauseExit?.Invoke();
+        //OnPauseExit?.Invoke();
+    }
+
+    public void TogglePauseGame()
+    {
+        if(_isGamePaused)
+        {
+            Debug.Log("game is un-paused");
+            _isGamePaused = false;            
+            EventAggregator.GetEvent<PauseEndEvent>().Publish();
+        }
+        else
+        {
+            Debug.Log("game is paused");
+            _isGamePaused = true;            
+            EventAggregator.GetEvent<PauseStartEvent>().Publish();
+        }
     }
 }

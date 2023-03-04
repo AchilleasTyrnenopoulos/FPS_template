@@ -49,7 +49,7 @@ public static class EventAggregator
         object eventContainer;
         if(_events.TryGetValue(typeof(PubSubEvent), out eventContainer))
         {
-            ((PubSubEvent)eventContainer).Unsubscribe(action);
+            ((PubSubEvent)eventContainer).UnSubscribe(action);
         }
     }
     public static void Unsubscribe<TEvent>(Action<TEvent> action)
@@ -88,7 +88,7 @@ public class PubSubEvent
         _subscribers.Add(action);
     }
 
-    public void Unsubscribe(Action action)
+    public void UnSubscribe(Action action)
     {
         _subscribers.Remove(action);
     }

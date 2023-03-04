@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,7 +33,7 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Rotate.canceled += StoppedRotating;
 
         _input.Player.Sprint.started += StartedSprinting;
-        _input.Player.Sprint.canceled += StoppedSprinting;
+        _input.Player.Sprint.canceled += StoppedSprinting;        
     }
 
     private void OnDisable()
@@ -48,10 +49,18 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Rotate.canceled -= StoppedRotating;
 
         _input.Player.Sprint.started -= StartedSprinting;
-        _input.Player.Sprint.canceled -= StoppedSprinting;
+        _input.Player.Sprint.canceled -= StoppedSprinting;        
 
         _input.Player.Disable();
     }
+
+    public void Disable()
+    {
+        Debug.Log("disable input");
+        this.Disable();
+    }
+
+
 
     #region Movement
 
@@ -123,6 +132,7 @@ public class PlayerInput : MonoBehaviour
     {
         return _input.Player.Interact.triggered;
     }
+   
 }
 
 

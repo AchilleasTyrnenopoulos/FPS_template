@@ -52,7 +52,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
+        if (!GameManager.Instance.GetIsGamePaused())
+        {
+            GetInput();
+        }
 
         bool wasGrounded = isGrounded;
         GroundCheck();
@@ -81,6 +84,11 @@ public class PlayerController : MonoBehaviour
             //play landing sfx
             FootstepsManager.PlayLandingSfx();
         }
+    }
+
+    public void SetInput()
+    {
+
     }
 
     private void GetInput()
