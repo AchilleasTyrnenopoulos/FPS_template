@@ -133,6 +133,15 @@ public class PlayerInput : MonoBehaviour
         return _input.Player.Interact.triggered;
     }
    
+    public bool GetPrimaryActionTrigger()
+    {
+        return _input.Player.PrimaryAction.triggered;
+    }
+
+    public bool GetSecondaryActionTrigger()
+    {
+        return _input.Player.SecondaryAction.triggered;
+    }
 }
 
 

@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     public bool GetIsSprinting() => _isSprinting;
     private bool _interactTriggered = false;
     public bool GetInteractTriggered() => _interactTriggered;
+    private bool _primaryActionTriggered = false;
+    private bool _secondaryActionTriggered = false;
+    public bool GetSecondaryActionTrigger() => _secondaryActionTriggered;
+
+    public bool GetPrimaryActionTrigger() => _primaryActionTriggered;
 
     private void Awake()
     {
@@ -100,6 +105,8 @@ public class PlayerController : MonoBehaviour
         _isRotating = Input.GetIsRotating();
         _isSprinting = Input.GetIsSprinting();
         _interactTriggered = Input.GetInteractTrigger();
+        _primaryActionTriggered = Input.GetPrimaryActionTrigger();
+        _secondaryActionTriggered = Input.GetSecondaryActionTrigger();
     }
 
     private void GroundCheck()
