@@ -142,6 +142,11 @@ public class PlayerInput : MonoBehaviour
     {
         return _input.Player.SecondaryAction.triggered;
     }
+
+    public bool GetSwapWeaponTrigger()
+    {
+        return _input.Player.SwapWeapon.triggered;
+    }
 }
 
 

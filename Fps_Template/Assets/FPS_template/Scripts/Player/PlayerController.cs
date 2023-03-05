@@ -38,10 +38,13 @@ public class PlayerController : MonoBehaviour
     private bool _interactTriggered = false;
     public bool GetInteractTriggered() => _interactTriggered;
     private bool _primaryActionTriggered = false;
-    private bool _secondaryActionTriggered = false;
+    private bool _secondaryActionTriggered = false; 
+    private bool _swapWeaponTriggered;
+
     public bool GetSecondaryActionTrigger() => _secondaryActionTriggered;
 
     public bool GetPrimaryActionTrigger() => _primaryActionTriggered;
+    public bool GetSwapWeaponTrigger() => _swapWeaponTriggered;
 
     private void Awake()
     {
@@ -107,6 +110,7 @@ public class PlayerController : MonoBehaviour
         _interactTriggered = Input.GetInteractTrigger();
         _primaryActionTriggered = Input.GetPrimaryActionTrigger();
         _secondaryActionTriggered = Input.GetSecondaryActionTrigger();
+        _swapWeaponTriggered = Input.GetSwapWeaponTrigger();
     }
 
     private void GroundCheck()

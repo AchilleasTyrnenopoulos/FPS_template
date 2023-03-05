@@ -6,12 +6,14 @@ public class MeleeWeapon : WeaponBase
 {
     public override void PrimaryAction()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("melee weapon - primary action triggered");
+
+        //trigger animation
     }
 
     public override void SecondaryAction()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("melee weapon - secondary action triggered");
     }
 
     // Start is called before the first frame update

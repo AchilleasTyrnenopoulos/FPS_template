@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class InventoryBase : MonoBehaviour
 {
-    [SerializeField] protected string _inventoryIdentifier;
+    [SerializeField] protected InventoryIdentifiers _inventoryIdentifier;
     [SerializeField] protected List<InventoryItemBase> _items;
 
     public virtual void AddItem(InventoryItemBase item)
@@ -17,5 +17,5 @@ public abstract class InventoryBase : MonoBehaviour
         _items.Remove(item);
     }
 
-    public virtual string GetInventoryIdentifier() => _inventoryIdentifier;
+    public virtual InventoryIdentifiers GetInventoryIdentifier() => _inventoryIdentifier;
 }

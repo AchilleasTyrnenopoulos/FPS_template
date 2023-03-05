@@ -36,7 +36,7 @@ public class InventoriesManager : MonoBehaviour
         return _children[index];
     }
 
-    public InventoryBase GetInventory(string identifier)
+    public InventoryBase GetInventory(InventoryIdentifiers identifier)
     {
         return _children.Where(c => c.GetInventoryIdentifier() == identifier).FirstOrDefault();
     }

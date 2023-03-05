@@ -9,5 +9,5 @@ public class InventoryItemBase : ScriptableObject
     public string name;
     public Sprite icon;
     public InventoryItemType type;
-    public string inventoryIdentifier;
+    public InventoryIdentifiers inventoryIdentifier;
 }

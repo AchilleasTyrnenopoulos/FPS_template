@@ -235,7 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a641158863ffc544e89f76001c2147c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 6179864332265361642, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
+  _weaponRoot: {fileID: 96920651200388045}
+  _currentWeapon: {fileID: 0}
+  _mainWeapon: {fileID: 0}
+  _secondaryWeapon: {fileID: 0}
+  _secondaryWeaponEquipped: 0
 --- !u!1 &48223039872641185
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,72 +481,7 @@ Transform:
   m_LocalPosition: {x: 0.5, y: -0.68, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6659512884691085902}
+  m_Children: []
   m_Father: {fileID: 48223038660255700}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3020094170485642705
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 96920651200388045}
-    m_Modifications:
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8467558994018336672, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-      propertyPath: m_Name
-      value: Hitscan Weapon Test
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8467558994969852680, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-    - {fileID: 8467558993681988899, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
---- !u!4 &6659512884691085902 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8467558994018336671, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}
-  m_PrefabInstance: {fileID: 3020094170485642705}
-  m_PrefabAsset: {fileID: 0}

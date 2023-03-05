@@ -34,6 +34,10 @@ public class PlayerInteract : MonoBehaviour
             {
                 //cache the new interactable
                 Interactable newInteractable = hitInfo.collider.GetComponent<Interactable>();
+                if(newInteractable == null)
+                {
+                    newInteractable = hitInfo.collider.GetComponentInChildren<Interactable>();
+                }
                 //if player is not looking at another interactable and new interactable can be interacted with
                 if (_interactable == null && newInteractable.GetCanInteract())
                 {
