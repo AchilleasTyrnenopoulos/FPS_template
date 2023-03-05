@@ -17,7 +17,7 @@ public abstract class Interactable : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventAggregator.GetEvent<InteractEvent>().Unsubscribe(Interact);
+        EventAggregator.GetEvent<InteractEvent>().UnSubscribe(Interact);
     }
     public bool GetCanInteract() => _canInteract;
 
@@ -25,9 +25,10 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Interact(Interactable interactable)
     {
-        if (interactable != this) return;
-
-        Debug.Log($"interacted with {this.gameObject.name}");
+        if (interactable != this)
+            return;
+        else
+            Debug.Log($"interactable {interactable.gameObject.name} is {this.gameObject.name}: {interactable.gameObject.name == this.gameObject.name}");
         StartCoroutine(InteractCooldown());
     }
 

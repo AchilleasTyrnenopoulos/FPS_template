@@ -17,3 +17,7 @@ public class CannotInteractEvent : PubSubEvent { }
 public class PauseStartEvent : PubSubEvent { }
 public class PauseEndEvent : PubSubEvent { }
 #endregion
+
+#region Inventory events
+
+#endregion

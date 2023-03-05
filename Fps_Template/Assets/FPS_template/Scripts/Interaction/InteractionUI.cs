@@ -37,11 +37,11 @@ public class InteractionUI : MonoBehaviour
 
     private void OnDisable()
     {
-        EventAggregator.GetEvent<CanInteractEvent>().Unsubscribe(EnableObject);
-        EventAggregator.GetEvent<CanInteractEvent>().Unsubscribe(UpdateText);
+        EventAggregator.GetEvent<CanInteractEvent>().UnSubscribe(EnableObject);
+        EventAggregator.GetEvent<CanInteractEvent>().UnSubscribe(UpdateText);
         EventAggregator.GetEvent<CannotInteractEvent>().UnSubscribe(ResetText);
         EventAggregator.GetEvent<CannotInteractEvent>().UnSubscribe(DisableObject);
-        EventAggregator.GetEvent<InteractEvent>().Unsubscribe(ResetText);
+        EventAggregator.GetEvent<InteractEvent>().UnSubscribe(ResetText);
         EventAggregator.GetEvent<InteractEvent>().Subscribe(DisableObject);
     }
 
