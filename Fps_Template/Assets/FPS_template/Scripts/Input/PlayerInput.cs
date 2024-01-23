@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Rotate.canceled += StoppedRotating;
 
         _input.Player.Sprint.started += StartedSprinting;
-        _input.Player.Sprint.canceled += StoppedSprinting;        
+        _input.Player.Sprint.canceled += StoppedSprinting;                       
     }
 
     private void OnDisable()
@@ -146,6 +146,11 @@ public class PlayerInput : MonoBehaviour
     public bool GetSwapWeaponTrigger()
     {
         return _input.Player.SwapWeapon.triggered;
+    }
+
+    public bool GetJumpTrigger()
+    {
+        return _input.Player.Jump.triggered;
     }
 }
 

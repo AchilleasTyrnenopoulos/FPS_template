@@ -201,12 +201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0488a32178294ee4994dd7431a5efbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 2
-  _sprintingSpeed: 3
+  _movementSpeed: 4
+  _sprintingSpeed: 6
   _movementSharpnessOnGround: 15
   _airSpeed: 10
-  _accelerationSpeedInAir: 25
-  _footstepsFrequency: 1
+  _accelerationSpeedInAir: 5
+  _footstepsFrequency: 0.5
+  _jumpHeight: 8
+  _canJump: 1
 --- !u!114 &-3929211969136390533
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _footstepsFrequency = .3f;
     private float _footstepDistanceCounter = 0f;
 
+    [Header("Jumping")]
+    [SerializeField] private float _jumpHeight = 20f;
+    [SerializeField] private bool _canJump;
+    
     private void Awake()
     {
         _controller = GetComponent<PlayerController>();
@@ -35,11 +39,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleCharacterMovement()
     {       
+
         // converts move input to a worldspace vector based on our character's transform orientation
         Vector3 worldspaceMoveInput = transform.TransformVector(_controller.GetMoveInput());
 
         if (_controller.isGrounded)
-        {
+        {            
             // calculate the desired velocity from inputs, max speed, and current slope
             float speed = _controller.GetIsSprinting() ? _sprintingSpeed : _movementSpeed;
             Vector3 targetVelocity = worldspaceMoveInput * speed;
@@ -48,6 +53,15 @@ public class PlayerMovement : MonoBehaviour
 
             // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
             _characterVelocity = Vector3.Lerp(_characterVelocity, targetVelocity, _movementSharpnessOnGround * Time.deltaTime);
+
+            // jumping
+            if (_controller.GetJumpTrigger())
+            {
+                //TODO remove later
+                Debug.Log("Triggered JUMP");
+
+                Jump();
+            }
 
             //footsteps             
             if (_footstepDistanceCounter >= 1f / _footstepsFrequency)
@@ -100,4 +114,18 @@ public class PlayerMovement : MonoBehaviour
         return Vector3.Cross(slopeNormal, directionRight).normalized;
     }
 
+    private void Jump()
+    {
+        // cancel the vertical velocity
+        _characterVelocity = new Vector3(_characterVelocity.x, 0f, _characterVelocity.z);
+
+        // add the jump force value upwards
+        _characterVelocity += Vector3.up * _jumpHeight;
+
+        _controller.SetLastTimeJumped(Time.time);
+
+        // force grounding to false
+        _controller.isGrounded = false;
+        _controller.SetGroundNormal(Vector3.up);
+    }
 }

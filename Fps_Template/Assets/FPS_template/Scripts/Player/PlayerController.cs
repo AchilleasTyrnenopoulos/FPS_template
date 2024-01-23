@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _groundNormal;
     public Vector3 GetGroundNormal() => _groundNormal;
+    public void SetGroundNormal(Vector3 value) => _groundNormal = value;
     private Vector3 _moveInput;
     public Vector3 GetMoveInput() => _moveInput;
     private float _horizontalInput;
@@ -40,11 +41,17 @@ public class PlayerController : MonoBehaviour
     private bool _primaryActionTriggered = false;
     private bool _secondaryActionTriggered = false; 
     private bool _swapWeaponTriggered;
+    private bool _jumpTriggered;
+
+    private float _lastTimeJumped = 0f;
+    public void SetLastTimeJumped(float value) => _lastTimeJumped = value;
 
     public bool GetSecondaryActionTrigger() => _secondaryActionTriggered;
 
     public bool GetPrimaryActionTrigger() => _primaryActionTriggered;
     public bool GetSwapWeaponTrigger() => _swapWeaponTriggered;
+
+    public bool GetJumpTrigger() => _jumpTriggered;
 
     private void Awake()
     {
@@ -111,6 +118,7 @@ public class PlayerController : MonoBehaviour
         _primaryActionTriggered = Input.GetPrimaryActionTrigger();
         _secondaryActionTriggered = Input.GetSecondaryActionTrigger();
         _swapWeaponTriggered = Input.GetSwapWeaponTrigger();
+        _jumpTriggered = Input.GetJumpTrigger();
     }
 
     private void GroundCheck()
@@ -123,7 +131,7 @@ public class PlayerController : MonoBehaviour
         _groundNormal = Vector3.up;
 
         // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
-        if (Time.time >= JumpGroundingPreventionTime)
+        if (Time.time >= _lastTimeJumped + JumpGroundingPreventionTime)
         {
             // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(CharController.height),

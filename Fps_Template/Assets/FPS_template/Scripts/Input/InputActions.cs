@@ -89,6 +89,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""13953489-e11c-4265-b1c3-fe037a883845"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -289,6 +298,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SwapWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51445a57-5516-48de-992c-92b8e6a17e2f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -354,6 +374,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_PrimaryAction = m_Player.FindAction("PrimaryAction", throwIfNotFound: true);
         m_Player_SecondaryAction = m_Player.FindAction("SecondaryAction", throwIfNotFound: true);
         m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
@@ -423,6 +444,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PrimaryAction;
     private readonly InputAction m_Player_SecondaryAction;
     private readonly InputAction m_Player_SwapWeapon;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -434,6 +456,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @PrimaryAction => m_Wrapper.m_Player_PrimaryAction;
         public InputAction @SecondaryAction => m_Wrapper.m_Player_SecondaryAction;
         public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -464,6 +487,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @SwapWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
                 @SwapWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
                 @SwapWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapWeapon;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -489,6 +515,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @SwapWeapon.started += instance.OnSwapWeapon;
                 @SwapWeapon.performed += instance.OnSwapWeapon;
                 @SwapWeapon.canceled += instance.OnSwapWeapon;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -553,6 +582,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnPrimaryAction(InputAction.CallbackContext context);
         void OnSecondaryAction(InputAction.CallbackContext context);
         void OnSwapWeapon(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
