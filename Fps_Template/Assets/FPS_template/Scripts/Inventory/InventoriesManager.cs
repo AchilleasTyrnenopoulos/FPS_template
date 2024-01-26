@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoriesManager : MonoBehaviour
 {
     public static InventoriesManager Instance {get; private set;}
-    [SerializeField] private List<InventoryBase> _children = new();
+    [SerializeField] private List<InventoryBase> _children = new(); // this is set from the editor - TODO maybe we can also set it from here for safety
 
     private void Awake()
     {
@@ -17,12 +17,6 @@ public class InventoriesManager : MonoBehaviour
             Debug.LogWarning($"There are multiple GameManagers in the scene.\n Name: {this.gameObject.name}\n Position: {this.transform}");
             Destroy(this.gameObject);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

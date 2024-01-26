@@ -18,4 +18,18 @@ public abstract class InventoryBase : MonoBehaviour
     }
 
     public virtual InventoryIdentifiers GetInventoryIdentifier() => _inventoryIdentifier;
+
+    public virtual InventoryItemBase GetItem(int itemIndex) => _items[itemIndex];
+
+    public virtual bool IsInventoryEmpty()
+    {
+        if (_items == null || _items.Count == 0)
+        {
+            Debug.Log("Inventory is empty");
+            return true;
+        }
+
+        Debug.Log("Inventory is not empty");
+        return false;
+    }
 }

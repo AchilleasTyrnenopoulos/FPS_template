@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,11 @@ public class PickUpInteractable : Interactable
             return;
         
         AddItemToInventory();
-
-        base.Interact(interactable);
+        //base.Interact(interactable); // TODO think if this is needed
 
 
         //Debug.Log("PickpuInteractable - Interact - END");
+        //Destroy(this.gameObject, 0.2f);
         Disable();
         StartCoroutine(DisableCompletelyDelay());
     }
@@ -30,11 +31,25 @@ public class PickUpInteractable : Interactable
     {
         //get inventory and add the item
         var inventory = InventoriesManager.Instance.GetInventory(_item.inventoryIdentifier);
+        
+        
+        // if this item is the first weapon the player takes, auto-equip it            
+        if(inventory.GetInventoryIdentifier() == InventoryIdentifiers.WEAPONS_INVENTORY && inventory.IsInventoryEmpty())
+        {
+            inventory.AddItem(_item);
+
+            Debug.Log("Auto equipping");
+            EventAggregator.GetEvent<EquipWeaponEvent>().Publish(0); // we re passing 0 because it's the first weapon
+
+            return;
+        }
+
         inventory.AddItem(_item);
     }
 
     private void Disable()
     {
+        Debug.Log("Disable" + DateTime.Now);
         //disable or destroy or pool
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         this.gameObject.GetComponent<Collider>().enabled = false;        
@@ -44,6 +59,7 @@ public class PickUpInteractable : Interactable
     {
         yield return new WaitForSeconds(_disableDelay);
 
+        Debug.Log("DisableCompletelyDelay" + DateTime.Now);
         this.gameObject.SetActive(false);
     }
 }

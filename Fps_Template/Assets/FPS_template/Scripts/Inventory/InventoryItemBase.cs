@@ -10,4 +10,5 @@ public class InventoryItemBase : ScriptableObject
     public Sprite icon;
     public InventoryItemType type;
     public InventoryIdentifiers inventoryIdentifier;
+    public GameObject itemPrefab;
 }

@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class WeaponInventory : InventoryBase
 {
-    private void EquipWeapon()
+    public override void AddItem(InventoryItemBase item)
     {
-        //get weapon
+        // check if we already have that weapon
+        if (_items.Contains(item)) return;
 
-        //check if _mainWeapon is null
-
-        //check if _secondaryWeapon is null
+        base.AddItem(item);
     }
 }

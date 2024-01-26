@@ -19,5 +19,5 @@ public class PauseEndEvent : PubSubEvent { }
 #endregion
 
 #region Inventory events
-
+public class EquipWeaponEvent : PubSubEvent<int> { }
 #endregion

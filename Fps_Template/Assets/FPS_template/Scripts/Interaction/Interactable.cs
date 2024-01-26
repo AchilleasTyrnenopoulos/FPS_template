@@ -11,6 +11,8 @@ public abstract class Interactable : MonoBehaviour
     protected float _interactionCooldown;
     [SerializeField]
     protected bool _canInteract = true;
+    [SerializeField]
+    protected bool _canInteractSecondTime = false;
 
     private void OnEnable()
     {
@@ -30,7 +32,11 @@ public abstract class Interactable : MonoBehaviour
             return;
         else
             Debug.Log($"interactable {interactable.gameObject.name} is {this.gameObject.name}: {interactable.gameObject.name == this.gameObject.name}");
-        StartCoroutine(InteractCooldown());
+
+        if (_canInteractSecondTime)
+        {
+            StartCoroutine(InteractCooldown());
+        }
     }
 
     private IEnumerator InteractCooldown()
