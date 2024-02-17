@@ -43,6 +43,13 @@ public class PickUpInteractable : Interactable
 
             return;
         }
+        else if(inventory.GetInventoryIdentifier() == InventoryIdentifiers.WEAPONS_INVENTORY && inventory.GetItemsCount() == 1)
+        {
+            inventory.AddItem(_item);
+
+            Debug.Log("Set secondary item");
+            EventAggregator.GetEvent<SetSecondaryWeapon>().Publish(_item.itemPrefab.GetComponent<WeaponBase>());
+        }
 
         inventory.AddItem(_item);
     }

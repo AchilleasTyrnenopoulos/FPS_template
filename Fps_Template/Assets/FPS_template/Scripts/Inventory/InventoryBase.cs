@@ -32,4 +32,6 @@ public abstract class InventoryBase : MonoBehaviour
         Debug.Log("Inventory is not empty");
         return false;
     }
+
+    public virtual int GetItemsCount() => _items.Count;
 }

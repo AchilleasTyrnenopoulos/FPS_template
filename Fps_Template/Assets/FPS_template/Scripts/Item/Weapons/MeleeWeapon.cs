@@ -8,7 +8,12 @@ public class MeleeWeapon : WeaponBase
     {
         Debug.Log("melee weapon - primary action triggered");
 
-        //trigger animation
+        Debug.Log($"animator is active and enabled: {weaponAnim.isActiveAndEnabled}");
+        Debug.Log($"animator game object is active: {weaponAnim.gameObject.activeInHierarchy}");
+        Debug.Log($"game object of this weapon is: {this.gameObject.name}");
+        Debug.Log("playing animation");
+        weaponAnim.SetTrigger("Attack");
+        
     }
 
     public override void SecondaryAction()
@@ -19,7 +24,8 @@ public class MeleeWeapon : WeaponBase
     // Start is called before the first frame update
     void Start()
     {
-        
+        // TODO remove - for testing
+        weaponAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame

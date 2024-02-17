@@ -133,9 +133,10 @@ MonoBehaviour:
   weaponAnim: {fileID: 0}
   meshPrefab: {fileID: 0}
   canUseAction: 1
+  offsetTransform: {fileID: 0}
   _layers:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 8
   _decalPrefab: {fileID: 80013625201396309, guid: f50a88ba6972beb4aa7fbb9c5a1c44cc, type: 3}
 --- !u!1 &8467558994969852681
 GameObject:

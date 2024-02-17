@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   type: 0
   inventoryIdentifier: 0
-  itemPrefab: {fileID: 0}
+  itemPrefab: {fileID: 8467558994018336672, guid: 0a6904f333ac3344bb186066889fd8aa, type: 3}

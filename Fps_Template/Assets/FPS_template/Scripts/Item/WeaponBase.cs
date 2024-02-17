@@ -12,5 +12,7 @@ public abstract class WeaponBase : ItemBase
     public bool canUseAction = true;
 
     public abstract void PrimaryAction();    
-    public abstract void SecondaryAction();    
+    public abstract void SecondaryAction();
+
+    [SerializeField] protected Transform offsetTransform;
 }

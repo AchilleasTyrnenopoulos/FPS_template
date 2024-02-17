@@ -25,11 +25,13 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void OnEnable()
     {
         EventAggregator.GetEvent<EquipWeaponEvent>().Subscribe(EquipWeapon);
+        EventAggregator.GetEvent<SetSecondaryWeapon>().Subscribe(SetSecondaryWeapon);
     }
 
     private void OnDisable()
     {
         EventAggregator.GetEvent<EquipWeaponEvent>().UnSubscribe(EquipWeapon);
+        EventAggregator.GetEvent<SetSecondaryWeapon>().UnSubscribe(SetSecondaryWeapon);
     }
 
     // Start is called before the first frame update
@@ -66,16 +68,19 @@ public class PlayerWeaponHandler : MonoBehaviour
         // check if player has a main/secondary weapon
         if ((!_secondaryWeaponEquipped && _secondaryWeapon == null) || (_secondaryWeaponEquipped && _mainWeapon == null)) return;
 
-        _currentWeapon.gameObject.SetActive(false);
+        //_currentWeapon.gameObject.SetActive(false); // TODO or destroy?
+        Destroy(_currentWeapon.gameObject);
 
         if (!_secondaryWeaponEquipped)
         {
-            _currentWeapon = _secondaryWeapon;
+            //_currentWeapon = _secondaryWeapon;
+            EquipWeapon(1);
             _secondaryWeaponEquipped = true;
         }
         else
         {
-            _currentWeapon = _mainWeapon;
+            //_currentWeapon = _mainWeapon;
+            EquipWeapon(0);
             _secondaryWeaponEquipped = false;
         }
 
@@ -94,6 +99,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         
         var instWeapon = Instantiate(weapon, _weaponRoot); // TODO do this properly
         instWeapon.SetActive(true);
+        _currentWeapon = instWeapon.GetComponent<WeaponBase>();
         //Debug.Log("Equipping " + weaponGO.name);
+    }
+
+    private void SetSecondaryWeapon(WeaponBase weapon)
+    {
+        Debug.Log($"Settining secondary weapon: {weapon.name}");
+        _secondaryWeapon = weapon;
     }
 }
