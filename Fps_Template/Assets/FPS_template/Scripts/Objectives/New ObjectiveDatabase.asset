@@ -10,20 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efb391ddf1b881843891244ce4761fc7, type: 3}
-  m_Name: ObjectiveDatabase
+  m_Name: New ObjectiveDatabase
   m_EditorClassIdentifier: 
   objectives:
-  - Id: 0
-    Description: Equip the flashlight
-    Type: 2
+  - Id: 
+    Description: 
+    Type: 0
     Prerequisites:
     - Conditions:
       - {fileID: 0}
-    IsActive: 1
-    IsCompleted: 0
-  - Id: 1
-    Description: Get to the main entrance
-    Type: 1
-    Prerequisites: []
     IsActive: 0
     IsCompleted: 0

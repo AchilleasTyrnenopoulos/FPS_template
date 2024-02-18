@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving = false;
     [SerializeField]
     private bool _isRotating = false;
+    public bool GetIsTurning() => _isRotating;
     private bool _isSprinting = false;
     public bool GetIsSprinting() => _isSprinting;
     private bool _interactTriggered = false;
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
     public bool GetSwapWeaponTrigger() => _swapWeaponTriggered;
 
     public bool GetJumpTrigger() => _jumpTriggered;
+
 
     private void Awake()
     {

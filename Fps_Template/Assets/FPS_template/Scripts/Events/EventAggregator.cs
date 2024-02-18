@@ -116,6 +116,7 @@ public class PubSubEvent<TEvent>
 
     public void Publish(TEvent payload)
     {
-        _subscribers.ForEach(subscriber => subscriber(payload));
+        if(_subscribers.Count > 0)
+            _subscribers?.ForEach(subscriber => subscriber(payload));
     }
 }

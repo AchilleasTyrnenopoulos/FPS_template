@@ -8,7 +8,7 @@ public class InteractionUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _promptMsg;
     [SerializeField] private TextMeshProUGUI _interactableMsgText;
-    [SerializeField] private GameObject _interactionGO;
+    [SerializeField] private GameObject _interactionUI_GO;
 
     private void OnEnable()
     {
@@ -22,17 +22,17 @@ public class InteractionUI : MonoBehaviour
 
     private void EnableObject(Interactable interactable)
     {
-        _interactionGO.SetActive(true);
+        _interactionUI_GO.SetActive(true);
     }
 
     private void DisableObject()
     {
-        _interactionGO.SetActive(false);
+        _interactionUI_GO.SetActive(false);
     }
 
     private void DisableObject(Interactable interactable)
     {
-        _interactionGO.SetActive(false);
+        _interactionUI_GO.SetActive(false);
     }
 
     private void OnDisable()
@@ -57,6 +57,7 @@ public class InteractionUI : MonoBehaviour
 
     private void ResetText()
     {
+        Debug.Log("InteractionUI - ResetText");
         _promptMsg.text = string.Empty;
         _interactableMsgText.text = string.Empty;
     }
