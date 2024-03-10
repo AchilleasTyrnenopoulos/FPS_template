@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/FPS_template/Scenes/MainMenu.unity
     guid: 152887eb447d3c342a34f5ded483a6d5
   - enabled: 1
+    path: Assets/FPS_template/Scenes/LoadingScene.unity
+    guid: 6cdf99e97e4a302479bc271d3ca9e87e
+  - enabled: 1
     path: Assets/FPS_template/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

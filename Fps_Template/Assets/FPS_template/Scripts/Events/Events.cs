@@ -22,3 +22,7 @@ public class PauseEndEvent : PubSubEvent { }
 public class EquipWeaponEvent : PubSubEvent<int> { }
 public class SetSecondaryWeapon : PubSubEvent<WeaponBase> { }
 #endregion
+
+#region Scene management
+public class OnSceneChangeEvent : PubSubEvent { }
+#endregion

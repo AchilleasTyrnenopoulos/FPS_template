@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &345042105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345042107}
+  - component: {fileID: 345042106}
+  m_Layer: 0
+  m_Name: GameData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &345042106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345042105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8b9aa0bab27cc4492c60ab6e8b4235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSceneName: 
+--- !u!4 &345042107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345042105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1139204781 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9121755638671101080, guid: d73b635472bf95344b2a35b358c1988b, type: 3}
@@ -249,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _newGameBtn: {fileID: 0}
+  _sceneChanger: {fileID: 0}
 --- !u!224 &1438827514 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3612984355790359123, guid: d73b635472bf95344b2a35b358c1988b, type: 3}
@@ -658,3 +704,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _newGameBtn: {fileID: 1139204781}
+  _sceneChanger: {fileID: 0}
+--- !u!114 &3612984356633528748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3612984356633528746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942abcad9b0281f41a271542b65b6e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextSceneName: SampleScene
