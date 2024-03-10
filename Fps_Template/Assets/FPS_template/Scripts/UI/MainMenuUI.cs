@@ -13,11 +13,13 @@ public class MainMenuUI : MonoBehaviour
     {
         _newGameBtn?.Select();
         _sceneChanger = GetComponent<SceneChanger>();
+        MouseCursorHandler.EnableCursor();
     }
 
     public void NewGame()
     {
-        //SceneManager.LoadSceneAsync(1);
+        MouseCursorHandler.DisableCursor();
+
         // call SceneChanger
         _sceneChanger.LoadNewScene();
     }
