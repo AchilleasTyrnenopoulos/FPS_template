@@ -11,16 +11,21 @@ public class HitscanWeapon : WeaponBase
     {
         if (canUseAction)
         {
-            Debug.Log("shooting");
+            Debug.Log("shooting layers " + _layers.ToString());
 
             // TODO play vfx, sfx & animation 
             // ...
 
             //raycast        
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, _layers))
-            {                
-                // TODO check if destructible or damage-able and call approritate methods (apply damage etc.)
-                // ...
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Mathf.Infinity, _layers))
+            {
+                Debug.Log("HitscanWeapon raycast hit " + hit.transform.gameObject.name);
+                
+                // check if enemy or destructable and call approritate methods (apply damage etc.)                
+                if(hit.collider.gameObject.TryGetComponent(out IHealthManager enemyHealth))
+                {
+                    enemyHealth.TakeDamage(new DamageInfo { DamageAmount = 50 });
+                }
 
                 // spawn decal
                 Quaternion decalRotation = Quaternion.FromToRotation(Vector3.up, hit.normal); //get decal rotation
