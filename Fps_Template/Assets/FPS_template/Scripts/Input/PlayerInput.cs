@@ -130,12 +130,17 @@ public class PlayerInput : MonoBehaviour
 
     public bool GetInteractTrigger()
     {
-        return _input.Player.Interact.triggered;
+        return _input.Player.Interact.triggered;       
     }
    
     public bool GetPrimaryActionTrigger()
     {
-        return _input.Player.PrimaryAction.triggered;
+        return _input.Player.PrimaryAction.triggered;        
+    }
+
+    public bool GetPrimaryActionUp()
+    {
+        return _input.Player.PrimaryAction.WasReleasedThisFrame();
     }
 
     public bool GetSecondaryActionTrigger()

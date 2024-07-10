@@ -101,6 +101,10 @@ public class PlayerController : MonoBehaviour
             //play landing sfx
             FootstepsManager.PlayLandingSfx();
         }
+
+        // FOR TESTING
+        Debug.Log("Is Pressing Down: " + Input.GetPrimaryActionPressed());
+        Debug.Log("Released: " +  Input.GetPrimaryActionUp());
     }
 
     public void SetInput()
