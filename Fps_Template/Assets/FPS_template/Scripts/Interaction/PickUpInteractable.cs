@@ -11,10 +11,10 @@ public class PickUpInteractable : Interactable
     [SerializeField] private InventoryItemBase _item;
     [SerializeField] private float _disableDelay;
 
-    protected override void Interact(Interactable interactable)
+    protected override void Interact(string interactableId)
     {
         //Debug.Log("PickpuInteractable - Interact - STARTED");
-        if (interactable != this)
+        if (interactableId != this._id)
             return;
         
         AddItemToInventory();

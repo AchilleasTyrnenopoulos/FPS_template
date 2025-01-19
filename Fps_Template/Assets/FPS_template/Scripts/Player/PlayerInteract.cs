@@ -50,7 +50,7 @@ public class PlayerInteract : MonoBehaviour
                 if(_interactable != null && _controller.GetInteractTriggered()) 
                 {
                     //trigger the interaction event and set _interactable to null
-                    EventAggregator.GetEvent<InteractEvent>().Publish(_interactable);
+                    EventAggregator.GetEvent<InteractEvent>().Publish(_interactable.GetId());
                     ResetInteractable();
                 }
             }
@@ -61,8 +61,8 @@ public class PlayerInteract : MonoBehaviour
             //to stop showing the prompt message
             if (_interactable != null)
             {
+                EventAggregator.GetEvent<CannotInteractEvent>().Publish(_interactable.GetId());
                 ResetInteractable();
-                EventAggregator.GetEvent<CannotInteractEvent>().Publish();
             }
         }
 

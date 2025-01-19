@@ -16,12 +16,17 @@ public class MainMenuUI : MonoBehaviour
         MouseCursorHandler.EnableCursor();
     }
 
+    private void Start()
+    {
+        EventAggregator.GetEvent<OnMainMenuSceneStart>().Publish();
+    }
+
     public void NewGame()
     {
         MouseCursorHandler.DisableCursor();
 
         // call SceneChanger
-        _sceneChanger.LoadNewScene();
+        //_sceneChanger.LoadNewScene();
     }
 
     public void Quit()

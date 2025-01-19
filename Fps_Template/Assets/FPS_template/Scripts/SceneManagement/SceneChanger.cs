@@ -6,9 +6,21 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     [SerializeField] private string _nextSceneName = string.Empty;
-    public void LoadNewScene()
+
+    private void OnEnable()
     {
-        SceneManager.LoadScene("LoadingScene");
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
+    public void LoadNewScene()
+    {        
+        //SceneManager.LoadScene("LoadingScene");
         GameData.Instance.SetCurrentScene(_nextSceneName);
+        SceneManager.LoadScene(_nextSceneName);
     }
 }

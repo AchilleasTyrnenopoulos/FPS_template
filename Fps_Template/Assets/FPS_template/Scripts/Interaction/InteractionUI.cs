@@ -25,7 +25,7 @@ public class InteractionUI : MonoBehaviour
         _interactionUI_GO.SetActive(true);
     }
 
-    private void DisableObject()
+    private void DisableObject(string interactableId)
     {
         _interactionUI_GO.SetActive(false);
     }
@@ -55,7 +55,7 @@ public class InteractionUI : MonoBehaviour
         }
     }
 
-    private void ResetText()
+    private void ResetText(string interactableId)
     {
         Debug.Log("InteractionUI - ResetText");
         _promptMsg.text = string.Empty;

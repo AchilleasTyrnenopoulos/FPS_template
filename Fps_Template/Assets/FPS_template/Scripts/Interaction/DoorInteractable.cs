@@ -13,12 +13,12 @@ public class DoorInteractable : Interactable
         _anim = GetComponentInParent<Animator>();
     }
 
-    protected override void Interact(Interactable interactable)
+    protected override void Interact(string interactableId)
     {
-        Debug.Log("DoorInteractable - Interact - STARTED");
-        if (interactable != this)
+        if (interactableId != this._id)
             return;
 
+        Debug.Log("DoorInteractable - Interact - STARTED");
         _anim.enabled = true;
 
         if(_opensOnce)
@@ -29,7 +29,7 @@ public class DoorInteractable : Interactable
             // ...
 
             // reset interaction prompt
-            EventAggregator.GetEvent<CannotInteractEvent>().Publish();
+            EventAggregator.GetEvent<CannotInteractEvent>().Publish(this._id);
 
             // change layer 
             this.gameObject.layer = 0; // TODO maybe change to different layer

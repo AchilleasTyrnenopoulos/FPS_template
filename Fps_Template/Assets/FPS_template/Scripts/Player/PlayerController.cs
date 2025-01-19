@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // FOR TESTING
-        Debug.Log("Is Pressing Down: " + Input.GetPrimaryActionPressed());
+        //Debug.Log("Is Pressing Down: " + Input.GetPrimaryActionPressed());
         Debug.Log("Released: " +  Input.GetPrimaryActionUp());
     }
 
